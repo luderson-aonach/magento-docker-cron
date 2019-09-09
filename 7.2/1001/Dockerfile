@@ -15,11 +15,22 @@ RUN apt-get update && \
     zlib1g-dev \
     libmagickwand-dev \
     libmagickcore-dev \
-    cron && \
+    libgeoip-dev \
+    msmtp \
+    git \
+    nano \
+    gnupg \
+    sudo \
+    vim \
+    cron \
+    libsodium-dev && \
+    curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+    apt-get install -y nodejs && \
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install \
     bcmath \
     pdo_mysql \
+    mysqli \
     xsl \
     intl \
     zip \
@@ -33,11 +44,14 @@ RUN apt-get update && \
 
 # Installing pecl PHP modules
 RUN pecl install \
+    xdebug-2.6.0 \
     imagick-3.4.3 \
-    mcrypt-1.0.1 && \
+    geoip-1.1.1 \
+    libsodium && \
     docker-php-ext-enable \
+    xdebug \
     imagick \
-    mcrypt
+    geoip
 
 RUN usermod -u 1001 www-data && \
     groupmod -g 1001 www-data && \
